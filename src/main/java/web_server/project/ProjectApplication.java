@@ -16,4 +16,8 @@ public class ProjectApplication {
 	public String apiRoot(){
 		return "Hey";
 	}
+	@GetMapping("/admin")
+	public String homeAdmin(){
+		return "ADMINPAGE";
+	}
 }

@@ -18,4 +18,9 @@ public class GameService {
     public Optional<Game> gameById(ObjectId id){
         return gameRepository.findById(id);
     }
+    public List<Game> findGamesByGenre(String genre) {
+        return gameRepository.findByGenres(genre);
+    }public void deleteGameById(ObjectId id) {
+        gameRepository.deleteById(id);
+    }
 }
