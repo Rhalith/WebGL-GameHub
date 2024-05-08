@@ -11,4 +11,6 @@ import java.util.List;
 public interface GameRepository  extends MongoRepository<Game, ObjectId> {
     @Query("{'genres': { $in: [ ?0 ] }}")
     List<Game> findByGenres(String genre);
+    List<Game> findAllByOrderByLikeCountDesc();
+    List<Game> findByName(String name);
 }

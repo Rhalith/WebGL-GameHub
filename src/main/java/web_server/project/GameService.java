@@ -23,4 +23,10 @@ public class GameService {
     }public void deleteGameById(ObjectId id) {
         gameRepository.deleteById(id);
     }
+    public List<Game> findGamesByHighestLikes() {
+        return gameRepository.findAllByOrderByLikeCountDesc();
+    }
+    public List<Game> findGamesByName(String name) {
+        return gameRepository.findByName(name);
+    }
 }

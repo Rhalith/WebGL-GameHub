@@ -17,7 +17,7 @@ public class Game {
     private String gameId;
     private String name;
     private String description;
-    private int like_count;
+    private int likeCount;
     private List<String> genres;
     private List<Review> reviewIds;
 }

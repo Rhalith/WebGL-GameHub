@@ -31,5 +31,11 @@ public class GameController {
         gameService.deleteGameById(id);
         return new ResponseEntity<>("Oyun başarıyla silindi", HttpStatus.OK);
     }
-
+    @GetMapping("/top-likes")
+    public ResponseEntity<List<Game>> getGamesWithTopLikes() {
+        return new ResponseEntity<>(gameService.findGamesByHighestLikes(), HttpStatus.OK);
+    }@GetMapping("/search-by-name/{name}")
+    public ResponseEntity<List<Game>> searchGamesByName(@PathVariable String name) {
+        return new ResponseEntity<>(gameService.findGamesByName(name), HttpStatus.OK);
+    }
 }
