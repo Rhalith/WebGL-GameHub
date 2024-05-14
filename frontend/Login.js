@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import api from './api/axiosConfig';
+import './App.css';
+import { Link } from 'react-router-dom';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -9,7 +11,7 @@ function Login({ onLogin }) {
     try {
       const response = await api.post('/login', { username, password });
       if (response.status === 200) {
-        onLogin(username); // Kullanıcı adı ile onLogin fonksiyonunu çağır
+        onLogin(username);
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -17,21 +19,26 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2 className="login-header">Login</h2>
       <input
         type="text"
+        className="login-input"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
         type="password"
+        className="login-input"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Login</button>
+      <button className="login-button" onClick={handleLogin}>Login</button>
+      <div className="register-link">
+        <Link to="/register">Kayıt Ol</Link>
+      </div>
     </div>
   );
 }

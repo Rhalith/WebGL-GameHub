@@ -1,6 +1,8 @@
 package web_server.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +25,18 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public ResponseEntity createUser(@RequestBody User user) {
+        try {
+            if (userRepository.findByUsername(user.getUsername()).isPresent())
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already taken. Please try again");
+
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole("USER"); // Set the default role to "USER"
+            User savedUser = userRepository.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @GetMapping("/{username}")

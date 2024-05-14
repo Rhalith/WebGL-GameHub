@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import GameList from './GameList';
 import GamePage from './GamePage';
+import Register from './Register';
 import api from './api/axiosConfig';
 import Login from './Login';
 
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/" element={<GameList games={games} isAuthenticated={isAuthenticated} onLogout={handleLogout} username={username} />} />
+        <Route path="/register" element={<Register />} /> {/* Add route for Register component */}
         <Route path="/game/:id" element={<GamePage />} />
       </Routes>
     </div>

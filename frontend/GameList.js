@@ -14,7 +14,6 @@ function GameList({ games, isAuthenticated, onLogout, username }) {
     if (isAuthenticated) {
       onLogout();
     } else {
-      // Redirect to login page
       window.location.href = '/login';
     }
   };
@@ -23,14 +22,12 @@ function GameList({ games, isAuthenticated, onLogout, username }) {
     setSortByLikes(!sortByLikes);
   };
 
-  // Filter games based on name, description, and genres
   const filteredGames = games.filter(game =>
     game.name.toLowerCase().includes(searchTerm) ||
     game.description.toLowerCase().includes(searchTerm) ||
     game.genres.some(genre => genre.toLowerCase().includes(searchTerm))
   );
 
-  // Sort games by likeCount if sortByLikes is true
   const sortedGames = sortByLikes 
     ? [...filteredGames].sort((a, b) => b.likeCount - a.likeCount) 
     : filteredGames;

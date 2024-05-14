@@ -34,7 +34,7 @@ public class SecurityConfig {
                 }))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/error").permitAll()
+                        .requestMatchers("/users", "/error").permitAll()
                         .requestMatchers("/games/**").permitAll() // /games endpointine anonim erişim izni ver
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")

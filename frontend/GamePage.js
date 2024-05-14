@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import api from './api/axiosConfig';
+import axios from 'axios';
 import './App.css';
 
-function GamePage() {
+function GamePage({ token }) {
   const { id } = useParams();
   const [game, setGame] = useState({});
   const [review, setReview] = useState('');
@@ -13,15 +13,19 @@ function GamePage() {
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        const response = await api.get(`/games/${id}`);
+        const response = await axios.get(`http://localhost:8080/games/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setGame(response.data);
+        // Check if user has liked the game
+        setLikeStatus(response.data.likedGames.includes(id));
       } catch (error) {
         console.error('Error fetching game details:', error);
       }
     };
 
     fetchGame();
-  }, [id]);
+  }, [id, token]);
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
@@ -29,14 +33,18 @@ function GamePage() {
 
   const submitReview = async () => {
     try {
-      await api.post(`/reviews`, {
+      await axios.post(`http://localhost:8080/reviews`, {
         gameId: id,
         content: review,
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
       });
       setReview('');
       setSubmissionStatus('Review submitted successfully!');
       // Re-fetch game to update reviews immediately after submission
-      const response = await api.get(`/games/${id}`);
+      const response = await axios.get(`http://localhost:8080/games/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setGame(response.data);
     } catch (error) {
       console.error('Error submitting review:', error);
@@ -46,10 +54,14 @@ function GamePage() {
 
   const handleLikeGame = async () => {
     try {
-      await api.post(`/games/${id}/like`);
+      await axios.post(`http://localhost:8080/games/${id}/like`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setLikeStatus(true);
       // Update game details to reflect the new like count
-      const response = await api.get(`/games/${id}`);
+      const response = await axios.get(`http://localhost:8080/games/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setGame(response.data);
     } catch (error) {
       console.error('Error liking the game:', error);
@@ -58,10 +70,14 @@ function GamePage() {
 
   const handleUnlikeGame = async () => {
     try {
-      await api.post(`/games/${id}/unlike`);
+      await axios.post(`http://localhost:8080/games/${id}/unlike`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setLikeStatus(false);
       // Update game details to reflect the new like count
-      const response = await api.get(`/games/${id}`);
+      const response = await axios.get(`http://localhost:8080/games/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setGame(response.data);
     } catch (error) {
       console.error('Error unliking the game:', error);
@@ -101,7 +117,7 @@ function GamePage() {
         <h2>Reviews</h2>
         {game.reviewIds ? game.reviewIds.map((review, index) => (
           <div key={index} className="review">
-            <div className="review-icon"></div>  {/* User profile icon */}
+            <div className="review-icon"></div>
             <div className="review-content">
               <p>{review.content}</p>
             </div>
