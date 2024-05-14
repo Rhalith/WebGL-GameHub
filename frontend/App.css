@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: "Quicksand", Arial, Helvetica, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.App{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: black;
+  color: white;
+  margin-top: 10px;
+}.game {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.game h2 {
+  margin-top: 0;
+}
+
+.genres {
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.review {
+  margin-top: 10px;
+}
+
+.review p {
+  margin: 0;
+}
+
+.review strong {
+  font-weight: bold;
+}
+/* GamePage.css */
+.game-page-container {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  text-align: left;
+}
+
+h1 {
+  color: #333;
+  font-size: 28px;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-top: 10px;
+}
+
+p strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.game-iframe-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+iframe {
+  width: 100%;
+  height: 700px; /* Adjust the height as per your requirement */
+  border-radius: 8px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .game-page-container {
+      margin: 20px;
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 24px;
+  }
+
+  p {
+      font-size: 14px;
+  }
+
+  iframe {
+      height: 300px; /* Smaller height for smaller devices */
+  }
+}
+.review-section {
+  margin-top: 30px;
+}
+
+textarea {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px #ddd;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+/* GamePage.css - Additions for review styling */
+
+.review-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.review {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.review-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/149/149071.png'); /* Placeholder icon, replace with your actual image URL if available */
+  background-size: cover;
+  margin-right: 15px;
+}
+
+.review-content {
+  flex: 1;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px #ddd;
+  resize: none; /* Disable resizing */
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+/* App.css - Additions for GameList styling */
+
+.home-page {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* subtle shadow for depth */
+}
+
+.search-bar {
+  flex-grow: 1;
+  margin-right: 20px;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px; /* Makes the text larger and more readable */
+  outline: none; /* Removes the default focus outline */
+}
+.search-bar:focus {
+  border-color: #007bff; /* Changes border color on focus for better visibility */
+  box-shadow: 0 0 8px rgba(0,123,255,.5); /* Adds a subtle glow when the element is focused */
+}
+.sign-in-btn {
+  padding: 10px 20px; /* Reduce these values if they are too large */
+  font-size: 16px; 
+  flex-grow: 0; /* Prevents the button from growing */
+  flex-shrink: 0; /* Prevents the button from shrinking */
+  flex-basis: auto;
+  width: auto; /* Ensures width is only as wide as necessary */
+  height: auto; /* /* Adjust font size if it's too big */
+}
+
+.sign-in-btn:hover {
+  background-color: #0056b3; /* darker blue on hover */
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Stacks elements vertically on smaller screens */
+    align-items: stretch; /* Stretches children to full width */
+  }
+
+  .search-bar, .sign-in-btn {
+    width: 100%; /* Full width for both elements on smaller screens */
+    margin-right: 0; /* No margin needed when stacked */
+  }
+
+  .sign-in-btn {
+    padding: 8px 15px; /* Smaller padding for smaller screens */
+    font-size: 14px; /* Smaller font size for smaller screens */
+  }
+}
+.sign-in-btn:hover {
+  background-color: #0056b3;
+}
+
+
+.game {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.play-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.play-button:hover {
+  background-color: #218838;
+}
+
+
+.game img {
+  margin-right: 20px; /* Adds spacing between the image and the text */
+  border-radius: 4px; /* Optional: Adds rounded corners to the images */
+}
+
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust based on your preferred width */
+  gap: 20px;
+}
+
+/* App.css */
+
+/* Login form styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333333;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Game list header styles */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.welcome-message {
+  margin-right: 20px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.auth-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  background-color: #0056b3;
+}
