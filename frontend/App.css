@@ -392,4 +392,47 @@ button:hover {
 
 .sort-btn {
   margin-left: 10px;
+}.game-page-container {
+  padding: 20px;
+}
+
+.like-button {
+  background-color: #ff4757;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto; /* Sola yaslama */
+}
+
+.unlike-button {
+  background-color: #aaa;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto; /* Sola yaslama */
+}
+
+.like-button span,
+.unlike-button span {
+  margin-left: 8px;
 }

@@ -8,12 +8,12 @@ function GamePage() {
   const [game, setGame] = useState({});
   const [review, setReview] = useState('');
   const [submissionStatus, setSubmissionStatus] = useState('');
+  const [likeStatus, setLikeStatus] = useState(false);
 
   useEffect(() => {
     const fetchGame = async () => {
       try {
         const response = await api.get(`/games/${id}`);
-        console.log(response)
         setGame(response.data);
       } catch (error) {
         console.error('Error fetching game details:', error);
@@ -44,11 +44,34 @@ function GamePage() {
     }
   };
 
+  const handleLikeGame = async () => {
+    try {
+      await api.post(`/games/${id}/like`);
+      setLikeStatus(true);
+      // Update game details to reflect the new like count
+      const response = await api.get(`/games/${id}`);
+      setGame(response.data);
+    } catch (error) {
+      console.error('Error liking the game:', error);
+    }
+  };
+
+  const handleUnlikeGame = async () => {
+    try {
+      await api.post(`/games/${id}/unlike`);
+      setLikeStatus(false);
+      // Update game details to reflect the new like count
+      const response = await api.get(`/games/${id}`);
+      setGame(response.data);
+    } catch (error) {
+      console.error('Error unliking the game:', error);
+    }
+  };
+
   return (
     <div className="game-page-container">
       <h1>{game.name}</h1>
       <p><strong>Description:</strong> {game.description}</p>
-      <p><strong>Like Count:</strong> {game.likeCount}</p>
       <p><strong>Genres:</strong> {game.genres ? game.genres.join(', ') : ''}</p>
       <div className="game-iframe-container">
         <iframe
@@ -65,22 +88,30 @@ function GamePage() {
           style={{ width: '100%', height: '500px' }}
         ></iframe>
       </div>
+      {likeStatus ? (
+        <button className="unlike-button" onClick={handleUnlikeGame}>
+          Unlike <span>{game.likeCount}</span>
+        </button>
+      ) : (
+        <button className="like-button" onClick={handleLikeGame}>
+          Like <span>{game.likeCount}</span>
+        </button>
+      )}
       <div className="review-section">
-    <h2>Reviews</h2>
-    {game.reviewIds ? game.reviewIds.map((review, index) => (
-        <div key={index} className="review">
+        <h2>Reviews</h2>
+        {game.reviewIds ? game.reviewIds.map((review, index) => (
+          <div key={index} className="review">
             <div className="review-icon"></div>  {/* User profile icon */}
             <div className="review-content">
-                <p>{review.content}</p>
+              <p>{review.content}</p>
             </div>
-        </div>
-    )) : <p>No reviews yet.</p>}
-    <h2>Write a Review</h2>
-    <textarea value={review} onChange={handleReviewChange} placeholder="Enter your review here..." rows="5"></textarea>
-    <button onClick={submitReview} style={{ marginTop: '10px' }}>Submit Review</button>
-    {submissionStatus && <p>{submissionStatus}</p>}
-</div>
-
+          </div>
+        )) : <p>No reviews yet.</p>}
+        <h2>Write a Review</h2>
+        <textarea value={review} onChange={handleReviewChange} placeholder="Enter your review here..." rows="5"></textarea>
+        <button onClick={submitReview} style={{ marginTop: '10px' }}>Submit Review</button>
+        {submissionStatus && <p>{submissionStatus}</p>}
+      </div>
     </div>
   );
 }

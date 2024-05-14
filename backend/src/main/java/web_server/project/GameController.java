@@ -41,5 +41,13 @@ public class GameController {
     }@GetMapping("/search-by-name/{name}")
     public ResponseEntity<List<Game>> searchGamesByName(@PathVariable String name) {
         return new ResponseEntity<>(gameService.findGamesByName(name), HttpStatus.OK);
+    }@PostMapping("/{id}/like")
+    public ResponseEntity<Game> likeGame(@PathVariable String id) {
+        Game likedGame = gameService.incrementLikeCount(id);
+        return ResponseEntity.ok(likedGame);
+    }@PostMapping("/{id}/unlike")
+    public ResponseEntity<Game> unlikeGame(@PathVariable String id) {
+        Game likedGame = gameService.decrementLikeCount(id);
+        return ResponseEntity.ok(likedGame);
     }
 }
