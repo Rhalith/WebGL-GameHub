@@ -5,8 +5,22 @@ import GamePage from './GamePage';
 import Register from './Register';
 import api from './api/axiosConfig';
 import Login from './Login';
-
+import axios from 'axios';
 function App() {
+
+
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
   const [games, setGames] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState(''); // Kullanıcı adı state'i

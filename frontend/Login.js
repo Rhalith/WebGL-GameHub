@@ -9,14 +9,18 @@ function Login({ onLogin }) {
 
   const handleLogin = async () => {
     try {
-      const response = await api.post('/login', { username, password });
+      const response = await api.post('/auth/login', { username, password });
       if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+        alert('Login successful!');
         onLogin(username);
       }
     } catch (error) {
+        alert('Credentials could not find. Please try again!');
       console.error('Error during login:', error);
     }
   };
+  
 
   return (
     <div className="login-container">
