@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
@@ -9,6 +9,7 @@ function GamePage({ token }) {
   const [review, setReview] = useState('');
   const [submissionStatus, setSubmissionStatus] = useState('');
   const [likeStatus, setLikeStatus] = useState(false);
+  const iframeRef = useRef(null); // Reference for the iframe
 
   useEffect(() => {
     const fetchGame = async () => {
@@ -17,7 +18,6 @@ function GamePage({ token }) {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGame(response.data);
-        // Check if user has liked the game
         setLikeStatus(response.data.likedGames.includes(id));
       } catch (error) {
         console.error('Error fetching game details:', error);
@@ -41,7 +41,6 @@ function GamePage({ token }) {
       });
       setReview('');
       setSubmissionStatus('Review submitted successfully!');
-      // Re-fetch game to update reviews immediately after submission
       const response = await axios.get(`http://localhost:8080/games/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -58,7 +57,6 @@ function GamePage({ token }) {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLikeStatus(true);
-      // Update game details to reflect the new like count
       const response = await axios.get(`http://localhost:8080/games/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -74,13 +72,24 @@ function GamePage({ token }) {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLikeStatus(false);
-      // Update game details to reflect the new like count
       const response = await axios.get(`http://localhost:8080/games/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGame(response.data);
     } catch (error) {
       console.error('Error unliking the game:', error);
+    }
+  };
+
+  const handleFullscreen = () => {
+    if (iframeRef.current.requestFullscreen) {
+      iframeRef.current.requestFullscreen();
+    } else if (iframeRef.current.mozRequestFullScreen) { // Firefox
+      iframeRef.current.mozRequestFullScreen();
+    } else if (iframeRef.current.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+      iframeRef.current.webkitRequestFullscreen();
+    } else if (iframeRef.current.msRequestFullscreen) { // IE/Edge
+      iframeRef.current.msRequestFullscreen();
     }
   };
 
@@ -91,6 +100,7 @@ function GamePage({ token }) {
       <p><strong>Genres:</strong> {game.genres ? game.genres.join(', ') : ''}</p>
       <div className="game-iframe-container">
         <iframe
+          ref={iframeRef} // Add ref to iframe
           scrolling="no"
           allowtransparency="true"
           webkitallowfullscreen="true"
@@ -103,6 +113,7 @@ function GamePage({ token }) {
           allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
           style={{ width: '100%', height: '500px' }}
         ></iframe>
+        <button onClick={handleFullscreen} style={{ marginTop: '10px' }}>Go Fullscreen</button>
       </div>
       {likeStatus ? (
         <button className="unlike-button" onClick={handleUnlikeGame}>
